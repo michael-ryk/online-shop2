@@ -1,16 +1,43 @@
-import React from 'react'
-import logo from '../assets/logo.png'
-import { Link } from 'react-router-dom'
-import { useProductsContext } from '../context/products_context'
-import { FaTimes } from 'react-icons/fa'
-import { links } from '../utils/constants'
-import styled from 'styled-components'
-import CartButtons from './CartButtons'
-import { useUserContext } from '../context/user_context'
+import React from 'react';
+import logo from '../assets/logo.png';
+import { Link } from 'react-router-dom';
+import { useProductsContext } from '../context/products_context';
+import { FaTimes } from 'react-icons/fa';
+import { links } from '../utils/constants';
+import styled from 'styled-components';
+import CartButtons from './CartButtons';
+import { useUserContext } from '../context/user_context';
+
+//isSidebarOpen - global param defined in products_context which is father of this block
+//Inside index.js we wrapped by products_context the aholw App.js
 
 const Sidebar = () => {
-  return <h4>sidebar</h4>
-}
+  const {isSidebarOpen, closeSideBar} = useProductsContext();
+
+  return (
+    <SidebarContainer>
+      <aside className={`${isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}`}>
+        <div className='sidebar-header'>
+          <img src={logo} className='logo' alt='logo'/>
+          <button className='close-btn' type='button' onClick={closeSideBar}>
+            <FaTimes />
+          </button>
+        </div>
+        <ul className='links'>
+          {links.map(({id, text, url})=>{
+            return <li key={id}>
+              <Link to={url} onClick={closeSideBar}>{text}</Link>
+            </li>
+          })}
+          <li>
+            <Link to='/checkout' onClick={closeSideBar}>checkout</Link>
+          </li>
+        </ul>
+        <CartButtons />
+      </aside>
+    </SidebarContainer>
+  );
+};
 
 const SidebarContainer = styled.div`
   text-align: center;
@@ -81,6 +108,6 @@ const SidebarContainer = styled.div`
       display: none;
     }
   }
-`
+`;
 
-export default Sidebar
+export default Sidebar;

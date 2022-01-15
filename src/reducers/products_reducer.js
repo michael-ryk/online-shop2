@@ -1,3 +1,4 @@
+// See explanation for this import in products_context.js
 import {
   SIDEBAR_OPEN,
   SIDEBAR_CLOSE,
@@ -7,11 +8,21 @@ import {
   GET_SINGLE_PRODUCT_BEGIN,
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
-} from '../actions'
+} from '../actions';
 
 const products_reducer = (state, action) => {
-  return state
-  throw new Error(`No Matching "${action.type}" - action type`)
-}
+  //Check different actions and return corresponding object state
 
-export default products_reducer
+  if (action.type === SIDEBAR_OPEN) {
+    return { ...state, isSidebarOpen: true };
+  }
+
+  if (action.type === SIDEBAR_CLOSE) {
+    return { ...state, isSidebarOpen: false };
+  }
+
+  // Throw custom error if some actions doesnt match criteria
+  throw new Error(`No Matching "${action.type}" - action type`);
+};
+
+export default products_reducer;

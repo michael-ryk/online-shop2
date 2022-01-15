@@ -1,3 +1,5 @@
+//To prevent typo errors, we define text strings for all actions
+
 export const SIDEBAR_OPEN = 'SIDEBAR_OPEN'
 export const SIDEBAR_CLOSE = 'SIDEBAR_CLOSE'
 export const GET_PRODUCTS_BEGIN = 'GET_PRODUCTS_BEGIN'
